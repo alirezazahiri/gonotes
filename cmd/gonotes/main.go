@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	notescli "github.com/alirezazahiri/gonotes/internal/cli/notes"
 	"github.com/alirezazahiri/gonotes/internal/notes"
 	notesrepo "github.com/alirezazahiri/gonotes/internal/repository/notes"
 )
@@ -16,6 +17,13 @@ func main() {
 	err := notesManager.LoadStoredNotes()
 	if err != nil {
 		fmt.Println("error loading stored notes:", err)
+		return
+	}
+
+	notesCLI := notescli.NewNotesCLI(notesManager)
+	err = notesCLI.Run()
+	if err != nil {
+		fmt.Println("error running notes CLI:", err)
 		return
 	}
 }
